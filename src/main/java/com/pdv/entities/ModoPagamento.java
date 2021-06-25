@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +20,8 @@ public class ModoPagamento {
 	private double taxa;
 	private double porcentagemDesconto;
 	private boolean troco;
+	@OneToOne
+	private Pagamento pagamento;
 
 
 	public Long getId() {
@@ -59,6 +62,14 @@ public class ModoPagamento {
 
 	public void setTroco(boolean troco) {
 		this.troco = troco;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 
 }

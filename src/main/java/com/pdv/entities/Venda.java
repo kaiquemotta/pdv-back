@@ -31,6 +31,8 @@ public class Venda {
 	private LocalDateTime dataCriacaoVenda;
 	private LocalDateTime dataFechamentoVenda;
 	private Double porcentagemDesconto;
+    @OneToMany(mappedBy = "venda")
+	private List<Pagamento>pagamentos;
 
 	public Long getId() {
 		return id;
