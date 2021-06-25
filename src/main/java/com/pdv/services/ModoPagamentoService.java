@@ -6,33 +6,35 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pdv.entities.Categoria;
-import com.pdv.repositories.CategoriaRepository;
+import com.pdv.entities.ModoPagamento;
+import com.pdv.repositories.ModoPagamentoRepository;
 
 @Service
 public class ModoPagamentoService {
 
-    @Autowired
-    private CategoriaRepository modoPagamentoRepository;
+	@Autowired
+	private ModoPagamentoRepository modoPagamentoRepository;
 
+	public List<ModoPagamento> findAll() {
+		return modoPagamentoRepository.findAll();
+	}
 
-    public List<Categoria> findAll() {
-       return modoPagamentoRepository.findAll();
-    }
+	public ModoPagamento findById(Long id) {
+		Optional<ModoPagamento> objCategoria = modoPagamentoRepository.findById(id);
+		return objCategoria.get();
+	}
 
-    public Categoria findById(Integer id) {
-        Optional<Categoria> objCategoria = modoPagamentoRepository.findById(id);
-        return objCategoria.get();
-    }
+	public ModoPagamento insert(ModoPagamento modoPagamento) {
+		return modoPagamentoRepository.save(modoPagamento);
+	}
 
-    public Categoria insert(Categoria objCategoria) {
-        return modoPagamentoRepository.save(objCategoria);
-    }
+	public ModoPagamento update(Long id, ModoPagamento modoPamento) {
+		Optional<ModoPagamento> newModoPagamento = modoPagamentoRepository.findById(id);
 
-    public Categoria update(Integer id, Categoria categoria) {
-        Optional<Categoria> newCategoria = modoPagamentoRepository.findById(id);
-
-        newCategoria.get().setNome(categoria.getNome());
-        return modoPagamentoRepository.save(newCategoria.get());
-    }
+		newModoPagamento.get().setDescricao(modoPamento.getDescricao());
+		newModoPagamento.get().setTaxa(modoPamento.getTaxa());
+		newModoPagamento.get().setPorcentagemDesconto(modoPamento.getPorcentagemDesconto());
+		newModoPagamento.get().setTroco(modoPamento.isTroco());
+		return modoPagamentoRepository.save(newModoPagamento.get());
+	}
 }

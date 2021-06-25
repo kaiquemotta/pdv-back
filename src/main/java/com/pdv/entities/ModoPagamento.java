@@ -1,5 +1,6 @@
 package com.pdv.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,8 +14,12 @@ public class ModoPagamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(unique=true)
 	private String descricao;
 	private double taxa;
+	private double porcentagemDesconto;
+	private boolean troco;
+
 
 	public Long getId() {
 		return id;
@@ -38,6 +43,22 @@ public class ModoPagamento {
 
 	public void setTaxa(double taxa) {
 		this.taxa = taxa;
+	}
+
+	public double getPorcentagemDesconto() {
+		return porcentagemDesconto;
+	}
+
+	public void setPorcentagemDesconto(double porcentagemDesconto) {
+		this.porcentagemDesconto = porcentagemDesconto;
+	}
+
+	public boolean isTroco() {
+		return troco;
+	}
+
+	public void setTroco(boolean troco) {
+		this.troco = troco;
 	}
 
 }

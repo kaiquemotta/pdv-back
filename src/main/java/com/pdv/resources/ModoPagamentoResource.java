@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pdv.entities.Categoria;
-import com.pdv.services.CategoriaService;
+import com.pdv.entities.ModoPagamento;
 import com.pdv.services.ModoPagamentoService;
 
 @RestController
@@ -28,27 +27,27 @@ public class ModoPagamentoResource {
 	    private ModoPagamentoService modoPagamentoService;
 
 	    @GetMapping()
-	    public ResponseEntity<List<Categoria>> findAll(){
-	        List<Categoria> categorias = modoPagamentoService.findAll();
+	    public ResponseEntity<List<ModoPagamento>> findAll(){
+	        List<ModoPagamento> categorias = modoPagamentoService.findAll();
 	        return ResponseEntity.ok().body(categorias);
 	    }
 
 	    @GetMapping(value = "/{id}")
-	    public ResponseEntity<Categoria> findById(@PathVariable Integer id){
-	        Categoria categoria = modoPagamentoService.findById(id);
-	        return ResponseEntity.ok().body(categoria);
+	    public ResponseEntity<ModoPagamento> findById(@PathVariable Long id){
+	    	ModoPagamento modoPagamento = modoPagamentoService.findById(id);
+	        return ResponseEntity.ok().body(modoPagamento);
 	    }
 
 	    @PostMapping
-	    public ResponseEntity<Void> insert(@RequestBody Categoria objCategoria){
-	        objCategoria = modoPagamentoService.insert(objCategoria);
-	        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objCategoria.getId()).toUri();
+	    public ResponseEntity<Void> insert(@RequestBody ModoPagamento modoPagamento){
+	        modoPagamento = modoPagamentoService.insert(modoPagamento);
+	        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(modoPagamento.getId()).toUri();
 	        return ResponseEntity.created(uri).build();
 	    }
 
 	    @PutMapping(value = "/{id}")
-	    public ResponseEntity<Categoria> update(@PathVariable Integer id, @RequestBody Categoria categoria){
-	        categoria = modoPagamentoService.update(id, categoria);
-	        return ResponseEntity.ok().body(categoria);
+	    public ResponseEntity<ModoPagamento> update(@PathVariable Long id, @RequestBody ModoPagamento modoPagamento){
+	        modoPagamento = modoPagamentoService.update(id, modoPagamento);
+	        return ResponseEntity.ok().body(modoPagamento);
 	    }
 }

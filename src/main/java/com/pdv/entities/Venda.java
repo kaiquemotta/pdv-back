@@ -3,6 +3,7 @@ package com.pdv.entities;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Venda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(unique = true)
 	private String nomeComanda;
 	@JsonIgnore
 	@OneToMany(mappedBy = "venda")
@@ -28,7 +30,7 @@ public class Venda {
 	private boolean finalizada;
 	private LocalDateTime dataCriacaoVenda;
 	private LocalDateTime dataFechamentoVenda;
-	
+	private Double porcentagemDesconto;
 
 	public Long getId() {
 		return id;
@@ -94,14 +96,19 @@ public class Venda {
 		this.finalizada = finalizada;
 	}
 
+	public Double getPorcentagemDesconto() {
+		return porcentagemDesconto;
+	}
+
+	public void setPorcentagemDesconto(Double porcentagemDesconto) {
+		this.porcentagemDesconto = porcentagemDesconto;
+	}
+
 	@Override
 	public String toString() {
 		return "Venda [id=" + id + ", nomeComanda=" + nomeComanda + ", itensVemda=" + itensVemda + ", subTotal="
 				+ subTotal + ", valorTotal=" + valorTotal + ", finalizada=" + finalizada + ", dataCriacaoVenda="
 				+ dataCriacaoVenda + ", dataFechamentoVenda=" + dataFechamentoVenda + "]";
 	}
-
-
-	
 
 }
