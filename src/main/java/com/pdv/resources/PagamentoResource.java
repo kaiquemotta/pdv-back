@@ -1,6 +1,5 @@
 package com.pdv.resources;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pdv.entities.Pagamento;
 import com.pdv.services.PagamentoService;
@@ -37,13 +35,19 @@ public class PagamentoResource {
 		Pagamento pagamento = pagamentoService.findById(id);
 		return ResponseEntity.ok().body(pagamento);
 	}
+	
+	@GetMapping(value = "/vendaId/{vendaId}")
+	public ResponseEntity<List<Pagamento>> findByIdVenda(@PathVariable Long vendaId) {
+		List<Pagamento> pagamentos = pagamentoService.findByVendaId(vendaId);
+		return ResponseEntity.ok().body(pagamentos);
+	}
 
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Pagamento pagamento) {
+	public ResponseEntity<Pagamento> insert(@RequestBody Pagamento pagamento) {
 		pagamento = pagamentoService.insert(pagamento);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pagamento.getId())
-				.toUri();
-		return ResponseEntity.created(uri).build();
+//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pagamento.getId())
+//				.toUri();
+		return ResponseEntity.ok(pagamento);
 	}
 
 	@PutMapping(value = "/{id}")

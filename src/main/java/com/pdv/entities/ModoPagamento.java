@@ -15,7 +15,7 @@ public class ModoPagamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String descricao;
 	private double taxa;
 	private double porcentagemDesconto;
@@ -23,6 +23,12 @@ public class ModoPagamento {
 	@OneToOne
 	private Pagamento pagamento;
 
+	public ModoPagamento(Long idModoPagamento) {
+		this.id = idModoPagamento;
+	}
+
+	public ModoPagamento() {
+	}
 
 	public Long getId() {
 		return id;

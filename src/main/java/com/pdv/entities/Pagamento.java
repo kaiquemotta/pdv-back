@@ -29,7 +29,7 @@ public class Pagamento {
 	private LocalDateTime dataPagamento;
 	private Double troco;
 	private Long idVenda;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -101,9 +101,5 @@ public class Pagamento {
 	public void setIdVenda(Long idVenda) {
 		this.idVenda = idVenda;
 	}
-
-
-
-	
 
 }
