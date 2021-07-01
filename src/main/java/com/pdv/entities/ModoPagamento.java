@@ -20,6 +20,8 @@ public class ModoPagamento {
 	private double taxa;
 	private double porcentagemDesconto;
 	private boolean troco;
+	private boolean aVista;
+
 	@OneToOne
 	private Pagamento pagamento;
 
@@ -74,8 +76,17 @@ public class ModoPagamento {
 		return pagamento;
 	}
 
+	public boolean isaVista() {
+		return aVista;
+	}
+
+	public void setaVista(boolean aVista) {
+		this.aVista = aVista;
+	}
+
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
+
 
 }

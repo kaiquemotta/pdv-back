@@ -34,7 +34,10 @@ public class ModoPagamentoService {
 		newModoPagamento.get().setDescricao(modoPamento.getDescricao());
 		newModoPagamento.get().setTaxa(modoPamento.getTaxa());
 		newModoPagamento.get().setPorcentagemDesconto(modoPamento.getPorcentagemDesconto());
-		newModoPagamento.get().setTroco(modoPamento.isTroco());
+		
+		newModoPagamento.get().setTroco(modoPamento.isTroco() == true ? true :false);
+		newModoPagamento.get().setaVista(modoPamento.isaVista() == true? true :false);
+
 		return modoPagamentoRepository.save(newModoPagamento.get());
 	}
 }
