@@ -25,6 +25,7 @@ public class ModoPagamentoService {
 	}
 
 	public ModoPagamento insert(ModoPagamento modoPagamento) {
+		modoPagamento.setPorcentagemDesconto(modoPagamento.getPorcentagemDesconto() / 100);
 		return modoPagamentoRepository.save(modoPagamento);
 	}
 
@@ -32,12 +33,10 @@ public class ModoPagamentoService {
 		Optional<ModoPagamento> newModoPagamento = modoPagamentoRepository.findById(id);
 
 		newModoPagamento.get().setDescricao(modoPamento.getDescricao());
-		newModoPagamento.get().setTaxa(modoPamento.getTaxa());
-		newModoPagamento.get().setPorcentagemDesconto(modoPamento.getPorcentagemDesconto());
-		
-		newModoPagamento.get().setTroco(modoPamento.isTroco() == true ? true :false);
-		newModoPagamento.get().setaVista(modoPamento.isaVista() == true? true :false);
-
+		if (modoPamento.getPorcentagemDesconto() != newModoPagamento.get().getPorcentagemDesconto()) {
+			newModoPagamento.get().setPorcentagemDesconto(modoPamento.getPorcentagemDesconto() / 100);
+		}
+		newModoPagamento.get().setaVista(modoPamento.isaVista() == true ? true : false);
 		return modoPagamentoRepository.save(newModoPagamento.get());
 	}
 }
