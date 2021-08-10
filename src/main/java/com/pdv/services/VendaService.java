@@ -66,4 +66,20 @@ public class VendaService {
 		vendaRepository.save(v.get());
 	}
 
+	public Venda finalizaVenda(Long id) {
+		Optional<Venda> v = vendaRepository.findById(id);
+		Venda venda = v.get();
+		venda.setDataFechamentoVenda(LocalDateTime.now());
+		venda.setFinalizada(true);
+		vendaRepository.save(venda);
+		return venda;
+	}
+
+
+
+	public List<Venda> findVendasEmAberto() {
+		List<Venda>vendas = vendaRepository.findByFinalizadaFalse();
+		return vendas;
+	}
+
 }

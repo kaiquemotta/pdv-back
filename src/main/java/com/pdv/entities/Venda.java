@@ -20,7 +20,6 @@ public class Venda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(unique = true)
 	private String nomeComanda;
 	@JsonIgnore
 	@OneToMany(mappedBy = "venda")
@@ -106,6 +105,7 @@ public class Venda {
 		this.porcentagemDesconto = porcentagemDesconto;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Venda [id=" + id + ", nomeComanda=" + nomeComanda + ", itensVemda=" + itensVemda + ", subTotal="
