@@ -17,4 +17,7 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
 	
 	public List<Venda>findByFinalizadaFalse();
 	
+	
+	public List<Venda>findByFinalizadaTrue();
+
 }

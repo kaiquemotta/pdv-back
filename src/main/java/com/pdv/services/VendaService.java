@@ -58,7 +58,7 @@ public class VendaService {
 	}
 
 	public void recalculaValorTotalVenda(Long vendaId) {
-		List<ItemVenda>listItensVenda = itemVendaRepository.listItensVendaByVendaId(vendaId);
+		List<ItemVenda> listItensVenda = itemVendaRepository.listItensVendaByVendaId(vendaId);
 		double soma = listItensVenda.stream().mapToDouble(ItemVenda::getSubTotal).sum();
 		Optional<Venda> v = vendaRepository.findById(vendaId);
 		v.get().setValorTotal(soma);
@@ -75,11 +75,13 @@ public class VendaService {
 		return venda;
 	}
 
-
-
 	public List<Venda> findVendasEmAberto() {
-		List<Venda>vendas = vendaRepository.findByFinalizadaFalse();
+		List<Venda> vendas = vendaRepository.findByFinalizadaFalse();
 		return vendas;
 	}
 
+	public List<Venda> findVendasFinalizasDia() {
+		List<Venda> vendas = vendaRepository.findByFinalizadaTrue();
+		return vendas;
+	}
 }

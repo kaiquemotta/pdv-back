@@ -18,11 +18,12 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.pdv.entities.Venda;
 
-public class VendaPDF {
+public class FechamentoCaixaPDF {
 
+	
 	private List<Venda> listVendas;
 
-	public VendaPDF(List<Venda> listVendas) {
+	public FechamentoCaixaPDF(List<Venda> listVendas) {
 		this.listVendas = listVendas;
 	}
 

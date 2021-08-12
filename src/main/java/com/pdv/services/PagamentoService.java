@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pdv.entities.Caixa;
 import com.pdv.entities.Pagamento;
 import com.pdv.entities.Venda;
 import com.pdv.repositories.PagamentoRepository;
@@ -16,7 +17,10 @@ public class PagamentoService {
 
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
-
+	
+	@Autowired
+	private CaixaService caixaService;
+	
 	@Autowired
 	VendaService vendaService;
 
@@ -30,7 +34,9 @@ public class PagamentoService {
 	}
 
 	public Pagamento insert(Pagamento pagamento) {
+		Caixa c = caixaService.findById(caixaService.getIdUltimoAbertoNow());
 		pagamento.setDataPagamento(LocalDateTime.now());
+		pagamento.setCaixa(c);
 		Venda venda = vendaService.findById(pagamento.getIdVenda());
 		pagamento.setVenda(venda);
 		return pagamentoRepository.save(pagamento);

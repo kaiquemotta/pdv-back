@@ -44,6 +44,8 @@ public class PagamentoResource {
 
 	@PostMapping
 	public ResponseEntity<Pagamento> insert(@RequestBody Pagamento pagamento) {
+		
+		
 		pagamento = pagamentoService.insert(pagamento);
 //		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pagamento.getId())
 //				.toUri();
