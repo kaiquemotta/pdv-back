@@ -35,16 +35,16 @@ public class FechamentoCaixaPDF {
 		Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN);
 		font.setColor(Color.WHITE);
 
-		cell.setPhrase(new Phrase("ID", font));
+		cell.setPhrase(new Phrase("ID Caixa ", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("Nome Comanda", font));
+		cell.setPhrase(new Phrase("Nome Caixa", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("Total", font));
+		cell.setPhrase(new Phrase("Data Abertura", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("Data", font));
+		cell.setPhrase(new Phrase("Data Fechamento", font));
 		table.addCell(cell);
 	}
 

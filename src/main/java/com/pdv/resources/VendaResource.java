@@ -17,7 +17,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pdv.entities.Venda;
 import com.pdv.reports.VendaPDF;
+import com.pdv.services.PrinterService;
 import com.pdv.services.VendaService;
+
+import java.io.Console;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -113,6 +116,26 @@ public class VendaResource {
 
 		VendaPDF exporter = new VendaPDF(vendas);
 		exporter.export(response);
+
+	}
+	
+	@GetMapping("/getComprovante")
+	public void getComprovante() throws DocumentException, IOException {
+	PrinterService printerService = new PrinterService();
+	// cut that paper!
+
+
+	
+	System.out.println(printerService.getPrinters());
+			
+	//print some stuff
+	printerService.printString("PDFCreator", "\n\n testing testing 1 2 3eeeee \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+	// cut that paper!
+	byte[] cutP = new byte[] { 0x1d, 'V', 1 };
+
+//	printerService.printBytes("EPSON-TM-T20II", cutP);
+
 
 	}
 }
