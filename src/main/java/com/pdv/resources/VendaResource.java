@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.lowagie.text.DocumentException;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/venda")
 public class VendaResource {
 

@@ -19,6 +19,7 @@ import com.pdv.entities.ModoPagamento;
 import com.pdv.services.ModoPagamentoService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/modoPagamento")
 public class ModoPagamentoResource {
 

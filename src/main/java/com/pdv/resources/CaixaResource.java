@@ -20,6 +20,7 @@ import com.pdv.services.CaixaService;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/caixa")
 public class CaixaResource {
 

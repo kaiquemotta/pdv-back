@@ -18,6 +18,7 @@ import com.pdv.entities.ItemVenda;
 import com.pdv.services.ItemVendaService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/itemVenda")
 public class ItemVendaResource {
 
