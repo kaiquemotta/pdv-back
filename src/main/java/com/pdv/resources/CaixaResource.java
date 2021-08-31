@@ -20,7 +20,7 @@ import com.pdv.services.CaixaService;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://fabulozinho.herokuapp.com")
 @RequestMapping(value = "/caixa")
 public class CaixaResource {
 

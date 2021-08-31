@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.lowagie.text.DocumentException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://fabulozinho.herokuapp.com")
 @RequestMapping(value = "/venda")
 public class VendaResource {
 
