@@ -18,7 +18,6 @@ import com.pdv.entities.ItemVenda;
 import com.pdv.services.ItemVendaService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/itemVenda")
 public class ItemVendaResource {
 

@@ -19,7 +19,6 @@ import com.pdv.entities.Categoria;
 import com.pdv.services.CategoriaService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 

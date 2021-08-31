@@ -17,7 +17,6 @@ import com.pdv.entities.Pagamento;
 import com.pdv.services.PagamentoService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/pagamento")
 public class PagamentoResource {
 
