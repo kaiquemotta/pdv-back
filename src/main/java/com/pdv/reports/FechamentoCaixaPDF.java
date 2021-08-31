@@ -72,7 +72,6 @@ public class FechamentoCaixaPDF {
 
 	}
 
-
 	private void writeTableData(PdfPTable table) {
 		for (Venda v : this.listVendas) {
 			table.addCell(String.valueOf(v.getId()));
