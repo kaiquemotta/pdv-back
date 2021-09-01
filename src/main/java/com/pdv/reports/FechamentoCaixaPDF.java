@@ -17,14 +17,15 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.pdv.dto.RelatorioCaixaDTO;
+import com.pdv.entities.Pagamento;
 import com.pdv.entities.Venda;
 
 public class FechamentoCaixaPDF {
 
 	
-	private List<RelatorioCaixaDTO> relatorioCaixa;
+	private List<Pagamento> relatorioCaixa;
 
-	public FechamentoCaixaPDF(List<RelatorioCaixaDTO> listVendas) {
+	public FechamentoCaixaPDF(List<Pagamento> listVendas) {
 		this.relatorioCaixa = listVendas;
 	}
 
@@ -36,27 +37,27 @@ public class FechamentoCaixaPDF {
 		Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN);
 		font.setColor(Color.WHITE);
 
-		cell.setPhrase(new Phrase("ID Caixa ", font));
+		cell.setPhrase(new Phrase("ID Venda", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("Nome Caixa", font));
+		cell.setPhrase(new Phrase("Valor Pagamento", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("Data Abertura", font));
+		cell.setPhrase(new Phrase("Quantidade Parcela", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("Data Fechamento", font));
+		cell.setPhrase(new Phrase("Troco", font));
 		table.addCell(cell);
 	}
 
 
 
 	private void writeTableData(PdfPTable table) {
-		for (RelatorioCaixaDTO v : this.relatorioCaixa) {
-			table.addCell(v.getId_venda());
-			table.addCell(v.getValor_pagamento());
-			table.addCell(v.getQuantida_parcela());
-			table.addCell(v.getDescricao());
+		for (Pagamento v : this.relatorioCaixa) {
+			table.addCell(String.valueOf(v.getIdVenda()));
+			table.addCell(String.valueOf(v.getValorPagamento()));
+			table.addCell(String.valueOf(v.getQuantidadeParcela()));
+			table.addCell(String.valueOf(v.getTroco()));
 		}
 	}
 

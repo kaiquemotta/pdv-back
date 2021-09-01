@@ -7,14 +7,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pdv.dto.RelatorioCaixaDTO;
 import com.pdv.entities.Caixa;
+import com.pdv.entities.Pagamento;
 import com.pdv.repositories.CaixaRepository;
+import com.pdv.repositories.PagamentoRepository;
+
 
 @Service
 public class CaixaService {
 	@Autowired
 	private CaixaRepository caixaRepository;
+
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 	public List<Caixa> findAll() {
 		return caixaRepository.findAll();
@@ -86,7 +91,7 @@ public class CaixaService {
 		return caixa;
 	}
 
-	public List<RelatorioCaixaDTO> pagamentosDia() {
-		return caixaRepository.findPagamentosCaixaNow();
+	public List<Pagamento> pagamentosDia() {
+		return pagamentoRepository.findByDataPagamento(LocalDateTime.now());
 	}
 }

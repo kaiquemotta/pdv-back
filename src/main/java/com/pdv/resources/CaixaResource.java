@@ -22,11 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lowagie.text.DocumentException;
-import com.pdv.dto.RelatorioCaixaDTO;
 import com.pdv.entities.Caixa;
-import com.pdv.entities.Venda;
+import com.pdv.entities.Pagamento;
 import com.pdv.reports.FechamentoCaixaPDF;
-import com.pdv.reports.VendaPDF;
 import com.pdv.services.CaixaService;
 
 @RestController
@@ -83,7 +81,7 @@ public class CaixaResource {
 		// caso queira realiazr download, apenas descomentar essa linha
 		// response.setHeader(headerKey, headerValue);
 
-		List<RelatorioCaixaDTO> vendas = caixaService.pagamentosDia();
+		List<Pagamento> vendas = caixaService.pagamentosDia();
 
 		FechamentoCaixaPDF exporter = new FechamentoCaixaPDF(vendas);
 		exporter.export(response);
@@ -101,7 +99,7 @@ public class CaixaResource {
 		// caso queira realiazr download, apenas descomentar essa linha
 		response.setHeader(headerKey, headerValue);
 
-		List<RelatorioCaixaDTO> vendas = caixaService.pagamentosDia();
+		List<Pagamento> vendas = caixaService.pagamentosDia();
 
 		FechamentoCaixaPDF exporter = new FechamentoCaixaPDF(vendas);
 		exporter.export(response);
