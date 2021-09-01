@@ -16,15 +16,16 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import com.pdv.dto.RelatorioCaixaDTO;
 import com.pdv.entities.Venda;
 
 public class FechamentoCaixaPDF {
 
 	
-	private List<Venda> listVendas;
+	private List<RelatorioCaixaDTO> relatorioCaixa;
 
-	public FechamentoCaixaPDF(List<Venda> listVendas) {
-		this.listVendas = listVendas;
+	public FechamentoCaixaPDF(List<RelatorioCaixaDTO> listVendas) {
+		this.relatorioCaixa = listVendas;
 	}
 
 	private void writeTableHeader(PdfPTable table) {
@@ -48,36 +49,14 @@ public class FechamentoCaixaPDF {
 		table.addCell(cell);
 	}
 
-	private void writeTableFooter(PdfPTable table) {
-		PdfPCell cell = new PdfPCell();
-		cell.setBackgroundColor(Color.BLACK);
-		cell.setPadding(5);
 
-		Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN);
-		font.setColor(Color.WHITE);
-
-		cell.setPhrase(new Phrase("", font));
-		table.addCell(cell);
-
-		cell.setPhrase(new Phrase("", font));
-		table.addCell(cell);
-		
-
-		cell.setPhrase(new Phrase("%:"+"R$ "+String.valueOf(this.listVendas.stream().mapToDouble(f -> f.getValorTotal()).sum() * 10 /100), font)  );
-		cell.setPadding(10);
-		table.addCell(cell);
-
-		cell.setPhrase(new Phrase("Total:"+"R$ "+String.valueOf(this.listVendas.stream().mapToDouble(f -> f.getValorTotal()).sum()), font));
-		table.addCell(cell);
-
-	}
 
 	private void writeTableData(PdfPTable table) {
-		for (Venda v : this.listVendas) {
-			table.addCell(String.valueOf(v.getId()));
-			table.addCell(v.getNomeComanda());
-			table.addCell(String.valueOf(v.getValorTotal()));
-			table.addCell(String.valueOf(v.getDataFechamentoVenda()));
+		for (RelatorioCaixaDTO v : this.relatorioCaixa) {
+			table.addCell(v.getId_venda());
+			table.addCell(v.getValor_pagamento());
+			table.addCell(v.getQuantida_parcela());
+			table.addCell(v.getDescricao());
 		}
 	}
 
@@ -102,7 +81,6 @@ public class FechamentoCaixaPDF {
 
 		writeTableHeader(table);
 		writeTableData(table);
-		writeTableFooter(table);
 		document.add(table);
 
 		document.close();

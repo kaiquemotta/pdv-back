@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pdv.dto.RelatorioCaixaDTO;
 import com.pdv.entities.Caixa;
 import com.pdv.repositories.CaixaRepository;
 
@@ -83,5 +84,9 @@ public class CaixaService {
 	    caixa.setValorFechamentoCartao(caixa.getPagamentos().stream().filter(c -> !c.getModoPagamento().isaVista()).mapToDouble(f -> f.getValorPagamento()).sum());
 	    
 		return caixa;
+	}
+
+	public List<RelatorioCaixaDTO> pagamentosDia() {
+		return caixaRepository.findPagamentosCaixaNow();
 	}
 }

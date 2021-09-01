@@ -1,7 +1,13 @@
 package com.pdv.resources;
 
+import java.io.IOException;
 import java.net.URI;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +20,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.lowagie.text.DocumentException;
+import com.pdv.dto.RelatorioCaixaDTO;
 import com.pdv.entities.Caixa;
-import com.pdv.services.CaixaService; 
-
-
+import com.pdv.entities.Venda;
+import com.pdv.reports.FechamentoCaixaPDF;
+import com.pdv.reports.VendaPDF;
+import com.pdv.services.CaixaService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -42,7 +52,7 @@ public class CaixaResource {
 	@PostMapping
 	public ResponseEntity<Void> insert(@RequestBody Caixa objCaixa) {
 		objCaixa = caixaService.insert(objCaixa);
-		if(objCaixa == null) {
+		if (objCaixa == null) {
 			return ResponseEntity.badRequest().body(null);
 		}
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objCaixa.getId())
@@ -61,4 +71,41 @@ public class CaixaResource {
 		Caixa caixa = caixaService.getFechamentoCaixa();
 		return ResponseEntity.ok().body(caixa);
 	}
+
+	@GetMapping("/caixa/export/pdf")
+	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+		// caso queira realiazr download, apenas descomentar essa linha
+		// response.setHeader(headerKey, headerValue);
+
+		List<RelatorioCaixaDTO> vendas = caixaService.pagamentosDia();
+
+		FechamentoCaixaPDF exporter = new FechamentoCaixaPDF(vendas);
+		exporter.export(response);
+
+	}
+
+	@GetMapping("/caixa/download/pdf")
+	public void downloadPDF(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+		// caso queira realiazr download, apenas descomentar essa linha
+		response.setHeader(headerKey, headerValue);
+
+		List<RelatorioCaixaDTO> vendas = caixaService.pagamentosDia();
+
+		FechamentoCaixaPDF exporter = new FechamentoCaixaPDF(vendas);
+		exporter.export(response);
+
+	}
+
 }
