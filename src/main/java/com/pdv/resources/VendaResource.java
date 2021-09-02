@@ -1,7 +1,14 @@
 package com.pdv.resources;
 
+import java.io.IOException;
 import java.net.URI;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.print.PrintService;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,27 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.github.anastaciocintra.escpos.EscPos;
+import com.github.anastaciocintra.output.PrinterOutputStream;
+import com.lowagie.text.DocumentException;
 import com.pdv.entities.Venda;
 import com.pdv.reports.VendaPDF;
-import com.pdv.services.PrinterService;
 import com.pdv.services.VendaService;
-
-import java.io.Console;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import com.lowagie.text.DocumentException;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -121,21 +113,13 @@ public class VendaResource {
 	
 	@GetMapping("/getComprovante")
 	public void getComprovante() throws DocumentException, IOException {
-	PrinterService printerService = new PrinterService();
-	// cut that paper!
-
-
-	
-	System.out.println(printerService.getPrinters());
-			
-	//print some stuff
-	printerService.printString("EPSON TM-T20-CAIXA", "\n\n testing testing 1 2 3eeeee \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
-	// cut that paper!
-	byte[] cutP = new byte[] { 0x1d, 'V', 1 };
-
-//	printerService.printBytes("EPSON-TM-T20II", cutP);
-
+		  PrintService printService = PrinterOutputStream.getPrintServiceByName("EPSON TM-T20-CAIXA");
+		  PrinterOutputStream printerOutputStream = new PrinterOutputStream(printService);
+		  EscPos escpos = new EscPos(printerOutputStream);
+		  escpos.writeLF("Hello Wold");
+		  escpos.feed(5);
+		  escpos.cut(EscPos.CutMode.FULL);
+		  escpos.close();
 
 	}
 }
