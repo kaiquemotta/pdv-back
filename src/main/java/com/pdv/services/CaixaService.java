@@ -85,8 +85,8 @@ public class CaixaService {
 	    Caixa caixa = caixas.get(0);
 	    
 	    caixa.setValorFechamento(caixa.getPagamentos().stream().mapToDouble(f -> f.getValorPagamento()).sum());
-	    caixa.setValorFechamentoAvista(caixa.getPagamentos().stream().filter(c -> c.getModoPagamento().isaVista()).mapToDouble(f -> f.getValorPagamento()).sum());
-	    caixa.setValorFechamentoCartao(caixa.getPagamentos().stream().filter(c -> !c.getModoPagamento().isaVista()).mapToDouble(f -> f.getValorPagamento()).sum());
+	    //caixa.setValorFechamentoAvista(caixa.getPagamentos().stream().filter(c -> c.getModoPagamento().isaVista()).mapToDouble(f -> f.getValorPagamento()).sum());
+	    //caixa.setValorFechamentoCartao(caixa.getPagamentos().stream().filter(c -> !c.getModoPagamento().isaVista()).mapToDouble(f -> f.getValorPagamento()).sum());
 	    
 		return caixa;
 	}

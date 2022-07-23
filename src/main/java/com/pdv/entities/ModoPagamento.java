@@ -1,5 +1,7 @@
 package com.pdv.entities;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_modo_pagamento")
 public class ModoPagamento {
@@ -15,78 +22,11 @@ public class ModoPagamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Column(unique = true)
 	private String descricao;
-	private double taxa;
-	private double porcentagemDesconto;
-	private boolean troco;
-	private boolean aVista;
-
-	@OneToOne
+	private String porcentagemDesconto;
+	@OneToOne(mappedBy = "modoPagamento")
 	private Pagamento pagamento;
-
-	public ModoPagamento(Long idModoPagamento) {
-		this.id = idModoPagamento;
-	}
-
-	public ModoPagamento() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public double getTaxa() {
-		return taxa;
-	}
-
-	public void setTaxa(double taxa) {
-		this.taxa = taxa;
-	}
-
-	public double getPorcentagemDesconto() {
-		return porcentagemDesconto;
-	}
-
-	public void setPorcentagemDesconto(double porcentagemDesconto) {
-		this.porcentagemDesconto = porcentagemDesconto;
-	}
-
-	public boolean isTroco() {
-		return troco;
-	}
-
-	public void setTroco(boolean troco) {
-		this.troco = troco;
-	}
-
-	public Pagamento getPagamento() {
-		return pagamento;
-	}
-
-	public boolean isaVista() {
-		return aVista;
-	}
-
-	public void setaVista(boolean aVista) {
-		this.aVista = aVista;
-	}
-
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
-	}
-
 
 }
