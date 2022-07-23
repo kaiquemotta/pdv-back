@@ -61,13 +61,33 @@ public class CaixaService {
 		Optional<Caixa> newCaixa = caixaRepository.findById(id);
 
 		newCaixa.get().setNome(caixa.getNome());
+		newCaixa.get().setIdUsuario(caixa.getIdUsuario());
+		newCaixa.get().setValorAbertura(caixa.getValorAbertura());
+		newCaixa.get().setValorFechamento(caixa.getValorFechamento());
+		//
+		newCaixa.get().setValorFechamentoDinheiro(caixa.getValorFechamentoDinheiro());
+		newCaixa.get().setValorFechamentoPix(caixa.getValorFechamentoPix());
+		newCaixa.get().setValorFechamentoCartaoCredito(caixa.getValorFechamentoCartaoCredito());
+		newCaixa.get().setValorFechamentoCartaoDebito(caixa.getValorFechamentoCartaoDebito());
+		newCaixa.get().setValorFechamentoConsignado(caixa.getValorFechamentoConsignado());
+		//
+		newCaixa.get().setDiferencaDinheiro(caixa.getDiferencaDinheiro());
+		newCaixa.get().setDiferencaPix(caixa.getDiferencaPix());
+		newCaixa.get().setDiferencaCartaoCredito(caixa.getDiferencaCartaoCredito());
+		newCaixa.get().setDiferencaCartaoDebito(caixa.getDiferencaCartaoDebito());
+
+		newCaixa.get().setDiferencaConsignado(caixa.getDiferencaConsignado());
+		//
+		newCaixa.get().setValorPagamentoDinheiro(caixa.getValorPagamentoDinheiro());
+		newCaixa.get().setValorPagamentoPix(caixa.getValorPagamentoPix());
+		newCaixa.get().setValorPagamentoCartaoCredito(caixa.getValorPagamentoCartaoCredito());
+		newCaixa.get().setValorPagamentoCartaoDebito(caixa.getValorPagamentoCartaoDebito());
+
+		newCaixa.get().setValorPagamentoConsignado(caixa.getValorPagamentoConsignado());
+		
 		newCaixa.get().setAberto(false);
 		newCaixa.get().setDataFechamento(LocalDateTime.now());
-		newCaixa.get().setDiferencaAvista(caixa.getDiferencaAvista());
-		newCaixa.get().setDiferencaCartao(caixa.getDiferencaCartao());
-		newCaixa.get().setValorFechamento(caixa.getValorFechamento());
-		newCaixa.get().setValorFechamentoAvista(caixa.getValorFechamentoAvista());
-		newCaixa.get().setValorFechamentoCartao(caixa.getValorFechamentoCartao());
+
 
 		return caixaRepository.save(newCaixa.get());
 	}
@@ -81,14 +101,25 @@ public class CaixaService {
 	public Caixa getFechamentoCaixa() {
 		List<Caixa> caixas = caixaRepository.findByAbertoAndDataAberturaBetween(true, getInicio(),
 				getInicio().plusHours(23).plusMinutes(59));
-		
+		if(caixas.size()!=0) {
 	    Caixa caixa = caixas.get(0);
 	    
 	    caixa.setValorFechamento(caixa.getPagamentos().stream().mapToDouble(f -> f.getValorPagamento()).sum());
-	    //caixa.setValorFechamentoAvista(caixa.getPagamentos().stream().filter(c -> c.getModoPagamento().isaVista()).mapToDouble(f -> f.getValorPagamento()).sum());
-	    //caixa.setValorFechamentoCartao(caixa.getPagamentos().stream().filter(c -> !c.getModoPagamento().isaVista()).mapToDouble(f -> f.getValorPagamento()).sum());
+	   
+	    caixa.setValorPagamentoDinheiro(caixa.getPagamentos().stream().filter(c -> c.getModoPagamento().getDescricao()== "DINHEIRO").mapToDouble(f -> f.getValorPagamento()).sum());
+	    caixa.setValorPagamentoPix(caixa.getPagamentos().stream().filter(c -> c.getModoPagamento().getDescricao()== "PIX").mapToDouble(f -> f.getValorPagamento()).sum());
+	    caixa.setValorPagamentoCartaoCredito(caixa.getPagamentos().stream().filter(c -> c.getModoPagamento().getDescricao()== "CARTÃO CREDITO").mapToDouble(f -> f.getValorPagamento()).sum());
+	    caixa.setValorPagamentoCartaoDebito(caixa.getPagamentos().stream().filter(c -> c.getModoPagamento().getDescricao()== "CARTÃO DEBITO").mapToDouble(f -> f.getValorPagamento()).sum());
+	    caixa.setValorPagamentoConsignado(caixa.getPagamentos().stream().filter(c -> c.getModoPagamento().getDescricao()== "CONSIGNADO").mapToDouble(f -> f.getValorPagamento()).sum());
 	    
+	    caixa.setValorFechamentoDinheiro(caixa.getValorFechamentoDinheiro() == null? 0 :caixa.getValorFechamentoDinheiro());
+	    caixa.setValorFechamentoPix(caixa.getValorFechamentoPix() == null? 0 :caixa.getValorFechamentoPix());
+	    caixa.setValorFechamentoCartaoCredito(caixa.getValorFechamentoCartaoCredito() == null? 0 :caixa.getValorFechamentoCartaoCredito());
+	    caixa.setValorFechamentoCartaoDebito(caixa.getValorFechamentoCartaoDebito() == null? 0 :caixa.getValorFechamentoCartaoDebito());
 		return caixa;
+		}else {
+			return null;
+		}
 	}
 
 	public List<Pagamento> pagamentosDia() {

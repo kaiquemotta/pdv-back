@@ -22,12 +22,30 @@ public class Caixa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	private Integer idUsuario;
+	
 	private Double valorAbertura;
 	private Double valorFechamento;
-	private Double valorFechamentoAvista;
-	private Double valorFechamentoCartao;
-	private Double diferencaAvista;
-	private Double diferencaCartao;
+	//
+	private Double valorFechamentoDinheiro;
+	private Double valorFechamentoPix;
+	private Double valorFechamentoCartaoCredito;
+	private Double valorFechamentoCartaoDebito;
+	private Double valorFechamentoConsignado;
+	//
+	private Double diferencaDinheiro;
+	private Double diferencaPix;
+	private Double diferencaCartaoCredito;
+	private Double diferencaCartaoDebito;
+	private Double diferencaConsignado;
+	//
+	
+	private Double valorPagamentoDinheiro;
+	private Double valorPagamentoPix;
+	private Double valorPagamentoCartaoCredito;
+	private Double valorPagamentoCartaoDebito;
+	private Double valorPagamentoConsignado;
+	
 	private LocalDateTime dataAbertura;
 	private LocalDateTime dataFechamento;
 	private boolean aberto;

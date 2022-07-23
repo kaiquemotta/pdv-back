@@ -16,9 +16,7 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import com.pdv.dto.RelatorioCaixaDTO;
 import com.pdv.entities.Pagamento;
-import com.pdv.entities.Venda;
 
 public class FechamentoCaixaPDF {
 
