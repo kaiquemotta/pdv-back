@@ -33,6 +33,8 @@ public class CategoriaService {
         Optional<Categoria> newCategoria = categoriaRepository.findById(id);
 
         newCategoria.get().setNome(categoria.getNome());
+        newCategoria.get().setImpressora(categoria.getImpressora());
+
         return categoriaRepository.save(newCategoria.get());
     }
 }

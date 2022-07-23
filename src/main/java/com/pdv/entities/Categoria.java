@@ -23,6 +23,7 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    private String impressora;
 
     @JsonIgnore
     //@JsonManagedReference
@@ -62,7 +63,15 @@ public class Categoria implements Serializable {
         this.produtos = produtos;
     }
 
-    @Override
+    public String getImpressora() {
+		return impressora;
+	}
+
+	public void setImpressora(String impressora) {
+		this.impressora = impressora;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
