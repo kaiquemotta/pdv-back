@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,11 +29,11 @@ public class Pagamento {
 	private Long id;
 
 	@OneToOne
-	@JoinColumn(name = "modo_pagamento_id", referencedColumnName = "id")
 	private ModoPagamento modoPagamento;
 
 	private Double porcentagemDesconto;
 	private Double valorPagamento;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "venda_id")
 	private Venda venda;
@@ -39,6 +41,7 @@ public class Pagamento {
 	private LocalDateTime dataPagamento;
 	private Double troco;
 	private Long idVenda;
+	@JsonIgnore
 	@ManyToOne
 	private Caixa caixa;
 

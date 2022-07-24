@@ -27,7 +27,7 @@ public class Venda {
 	private String nomeComanda;
 	@JsonIgnore
 	@OneToMany(mappedBy = "venda")
-	private List<ItemVenda> itensVemda;
+	private List<ItemVenda> itensVenda;
 	private Double subTotal;
 	private Double valorTotal;
 	private boolean finalizada;
@@ -39,7 +39,7 @@ public class Venda {
 
 	@Override
 	public String toString() {
-		return "Venda [id=" + id + ", nomeComanda=" + nomeComanda + ", itensVemda=" + itensVemda + ", subTotal="
+		return "Venda [id=" + id + ", nomeComanda=" + nomeComanda + ", itensVemda=" + itensVenda + ", subTotal="
 				+ subTotal + ", valorTotal=" + valorTotal + ", finalizada=" + finalizada + ", dataCriacaoVenda="
 				+ dataCriacaoVenda + ", dataFechamentoVenda=" + dataFechamentoVenda + "]";
 	}

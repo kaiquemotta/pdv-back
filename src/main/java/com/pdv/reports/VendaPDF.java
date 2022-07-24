@@ -2,6 +2,7 @@ package com.pdv.reports;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -62,8 +63,7 @@ public class VendaPDF {
 		table.addCell(cell);
 		
 
-		cell.setPhrase(new Phrase("%:"+"R$ "+String.valueOf(this.listVendas.stream().mapToDouble(f -> f.getValorTotal()).sum() * 10 /100), font)  );
-		cell.setPadding(10);
+
 		table.addCell(cell);
 
 		cell.setPhrase(new Phrase("Total:"+"R$ "+String.valueOf(this.listVendas.stream().mapToDouble(f -> f.getValorTotal()).sum()), font));
@@ -73,11 +73,15 @@ public class VendaPDF {
 
 
 	private void writeTableData(PdfPTable table) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+        
+
 		for (Venda v : this.listVendas) {
 			table.addCell(String.valueOf(v.getId()));
 			table.addCell(v.getNomeComanda());
 			table.addCell(String.valueOf(v.getValorTotal()));
-			table.addCell(String.valueOf(v.getDataFechamentoVenda()));
+			table.addCell(v.getDataFechamentoVenda().format(formatter));
 		}
 	}
 

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +26,8 @@ public class ModoPagamento {
 	@Column(unique = true)
 	private String descricao;
 	private String porcentagemDesconto;
-	@OneToOne(mappedBy = "modoPagamento")
+	
+	@OneToOne
 	private Pagamento pagamento;
 
 }

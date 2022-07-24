@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pdv.dto.PagamentoDTO;
 import com.pdv.entities.Pagamento;
 import com.pdv.services.PagamentoService;
 
@@ -37,19 +38,18 @@ public class PagamentoResource {
 	}
 	
 	@GetMapping(value = "/vendaId/{vendaId}")
-	public ResponseEntity<List<Pagamento>> findByIdVenda(@PathVariable Long vendaId) {
-		List<Pagamento> pagamentos = pagamentoService.findByVendaId(vendaId);
+	public ResponseEntity<List<?>> findByIdVenda(@PathVariable Long vendaId) {
+		List<PagamentoDTO> pagamentos = pagamentoService.findByVendaId(vendaId);
 		return ResponseEntity.ok().body(pagamentos);
 	}
 
 	@PostMapping
-	public ResponseEntity<Pagamento> insert(@RequestBody Pagamento pagamento) {
+	public ResponseEntity<?> insert(@RequestBody Pagamento pagamento) {
 		
 		
-		pagamento = pagamentoService.insert(pagamento);
 //		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pagamento.getId())
 //				.toUri();
-		return ResponseEntity.ok(pagamento);
+		return ResponseEntity.ok(pagamentoService.insert(pagamento));
 	}
 
 	@PutMapping(value = "/{id}")

@@ -1,27 +1,17 @@
-package com.pdv.entities;
+package com.pdv.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pdv.entities.Pagamento;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
-@Entity
-@Table(name = "tb_caixa")
-public class Caixa {
-
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CaixaDTO {
 	private Long id;
 	private String nome;
 	private Integer idUsuario;
@@ -48,11 +38,6 @@ public class Caixa {
 	private Double valorPagamentoCartaoDebito;
 	private Double valorPagamentoConsignado;
 	
-	private LocalDateTime dataAbertura;
-	private LocalDateTime dataFechamento;
-	private boolean aberto;
-	@JsonIgnore
-    @OneToMany(mappedBy = "caixa")
-	private List<Pagamento> pagamentos;
-	
-}
+	private String dataAbertura;
+	private String dataFechamento;
+	private boolean aberto;}

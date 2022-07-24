@@ -36,8 +36,8 @@ public class CaixaResource {
 	private CaixaService caixaService;
 
 	@GetMapping()
-	public ResponseEntity<List<Caixa>> findAll() {
-		List<Caixa> caixas = caixaService.findAll();
+	public ResponseEntity<List<?>> findAll() {
+		List<?> caixas = caixaService.findAll();
 		return ResponseEntity.ok().body(caixas);
 	}
 
