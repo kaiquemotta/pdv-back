@@ -40,4 +40,7 @@ public class CaixaDTO {
 	
 	private String dataAbertura;
 	private String dataFechamento;
-	private boolean aberto;}
+	private boolean aberto;
+	private List<PagamentoDTO>pagamentos;
+
+}

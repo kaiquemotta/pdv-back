@@ -37,6 +37,10 @@ public class FechamentoCaixaPDF {
 
 		cell.setPhrase(new Phrase("ID Venda", font));
 		table.addCell(cell);
+		
+
+		cell.setPhrase(new Phrase("Pagamento", font));
+		table.addCell(cell);
 
 		cell.setPhrase(new Phrase("Valor Pagamento", font));
 		table.addCell(cell);
@@ -44,8 +48,7 @@ public class FechamentoCaixaPDF {
 		cell.setPhrase(new Phrase("Quantidade Parcela", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("Troco", font));
-		table.addCell(cell);
+	
 	}
 
 
@@ -53,9 +56,9 @@ public class FechamentoCaixaPDF {
 	private void writeTableData(PdfPTable table) {
 		for (Pagamento v : this.relatorioCaixa) {
 			table.addCell(String.valueOf(v.getIdVenda()));
+			table.addCell(String.valueOf(v.getModoPagamento().getDescricao()));
 			table.addCell(String.valueOf(v.getValorPagamento()));
 			table.addCell(String.valueOf(v.getQuantidadeParcela()));
-			table.addCell(String.valueOf(v.getTroco()));
 		}
 	}
 
@@ -68,7 +71,7 @@ public class FechamentoCaixaPDF {
 		font.setSize(18);
 		font.setColor(Color.BLACK);
 
-		Paragraph p = new Paragraph("Vendas do dia", font);
+		Paragraph p = new Paragraph("Pagamentos Caixa", font);
 		p.setAlignment(Paragraph.ALIGN_CENTER);
 
 		document.add(p);
