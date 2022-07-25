@@ -1,20 +1,12 @@
 package com.pdv.resources;
 
-import java.awt.Font;
-import java.awt.image.BufferedImage;
-import java.awt.print.PrinterException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +26,6 @@ import com.pdv.entities.Venda;
 import com.pdv.reports.VendaPDF;
 import com.pdv.services.PrinterService;
 import com.pdv.services.VendaService;
-
-import pers.pete.printer.ThermalPrinter;
-import pers.pete.printer.consts.Const;
-import pers.pete.printer.enums.Align;
-import pers.pete.printer.pojo.BaseData;
-import pers.pete.printer.pojo.ImageData;
-import pers.pete.printer.pojo.LineData;
-import pers.pete.printer.pojo.QrcodeData;
-import pers.pete.printer.pojo.RowData;
-import pers.pete.printer.pojo.SpaceData;
-import pers.pete.printer.pojo.TitleData;
-import pers.pete.printer.pojo.WordData;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -134,7 +114,6 @@ public class VendaResource {
 	PrinterService printerService = new PrinterService();
 	// cut that paper!
 
-	this.test();
 	
 	//System.out.println(printerService.getPrinters());
 	//		
@@ -149,30 +128,5 @@ public class VendaResource {
 
 	}
 	
-	  public void test() {
-		    ThermalPrinter a = new ThermalPrinter(145, true);
-		    
-		    List<BaseData> list = new ArrayList<>();
-
-		    list.add(new WordData("编号: 1001", Align.LEFT, Font.BOLD, 5));
-
-
-		    list.add(new LineData("二维码", false));
-		    list.add(new LineData("本地图片", false));
-
-		    InputStream is;
-		    BufferedImage bi = null;
-		
-		    list.add(new ImageData(bi));
-
-		    list.add(new SpaceData(10));
-		    list.add(new WordData("打印时间: 2019-06-21", Align.RIGHT, Font.BOLD, 5));
-
-		    try {
-		      a.print(list);
-		    } catch (PrinterException e) {
-		      e.printStackTrace();
-		    }
-		  }
 		
 }

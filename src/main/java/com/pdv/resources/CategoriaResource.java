@@ -50,4 +50,6 @@ public class CategoriaResource {
         categoria = categoriaService.update(id, categoria);
         return ResponseEntity.ok().body(categoria);
     }
+    
+
 }

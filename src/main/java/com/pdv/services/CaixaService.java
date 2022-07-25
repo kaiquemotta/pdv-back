@@ -165,7 +165,7 @@ public class CaixaService {
 
 	public CaixaDTO findByUsuario(Long id) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-		Optional<Caixa> c = caixaRepository.findById(13L);
+		Optional<Caixa> c = caixaRepository.findById(1L);
 		Caixa a = c.get();
 		CaixaDTO dto = new CaixaDTO();
 		dto.setId(a.getId());
