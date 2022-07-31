@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,12 +34,14 @@ public class CategoriaResource {
     }
 
     @GetMapping(value = "/{id}")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Categoria> findById(@PathVariable Integer id){
         Categoria categoria = categoriaService.findById(id);
         return ResponseEntity.ok().body(categoria);
     }
 
     @PostMapping
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Void> insert(@RequestBody Categoria objCategoria){
         objCategoria = categoriaService.insert(objCategoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objCategoria.getId()).toUri();
@@ -46,6 +49,7 @@ public class CategoriaResource {
     }
 
     @PutMapping(value = "/{id}")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Categoria> update(@PathVariable Integer id, @RequestBody Categoria categoria){
         categoria = categoriaService.update(id, categoria);
         return ResponseEntity.ok().body(categoria);

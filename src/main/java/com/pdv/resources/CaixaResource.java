@@ -50,7 +50,7 @@ public class CaixaResource {
 	
 	@GetMapping(value = "/findByUsuario/{id}")
 	public ResponseEntity<?> findByUsuario(@PathVariable Long id) {
-		CaixaDTO caixa = caixaService.findByUsuario(id);
+		CaixaDTO caixa = caixaService.findByCaixa(id);
 		return ResponseEntity.ok().body(caixa);
 	}
 

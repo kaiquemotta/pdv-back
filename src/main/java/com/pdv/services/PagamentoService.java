@@ -36,23 +36,30 @@ public class PagamentoService {
 	}
 
 	public PagamentoDTO insert(Pagamento pagamento) {
-		Caixa c = caixaService.findById(caixaService.getIdUltimoAbertoNow());
-		pagamento.setDataPagamento(LocalDateTime.now());
-		pagamento.setCaixa(c);
-		Venda venda = vendaService.findById(pagamento.getIdVenda());
-		pagamento.setVenda(venda);
-		pagamento = pagamentoRepository.save(pagamento);
+		Caixa c = caixaService.findByUsuarioAbertoC();
+		if (c != null) {
+			pagamento.setDataPagamento(LocalDateTime.now());
+			pagamento.setCaixa(c);
+			
+			Venda venda = vendaService.findById(pagamento.getIdVenda());
+			pagamento.setVenda(venda);
+			pagamento.setTroco(pagamento.getTroco() == null?0:pagamento.getTroco());
+			pagamento.setValorPagamento(pagamento.getValorPagamento()-pagamento.getTroco());
+			pagamento = pagamentoRepository.save(pagamento);
 
-		PagamentoDTO dto = new PagamentoDTO();
-		dto.setId(pagamento.getId());
-		dto.setIdModoPagamento(pagamento.getModoPagamento().getId());
-		dto.setValorPagamento(pagamento.getValorPagamento());
-		dto.setIdVenda(pagamento.getIdVenda());
-		dto.setQuantidadeParcela(pagamento.getQuantidadeParcela());
-		dto.setDataPagamento(pagamento.getDataPagamento());
-		dto.setTroco(pagamento.getTroco());
-		dto.setModoPagamentoDescricao(pagamento.getModoPagamento().getDescricao());
-		return dto;
+			PagamentoDTO dto = new PagamentoDTO();
+			dto.setId(pagamento.getId());
+			dto.setIdModoPagamento(pagamento.getModoPagamento().getId());
+			dto.setValorPagamento(pagamento.getValorPagamento());
+			dto.setIdVenda(pagamento.getIdVenda());
+			dto.setQuantidadeParcela(pagamento.getQuantidadeParcela());
+			dto.setDataPagamento(pagamento.getDataPagamento());
+			dto.setTroco(pagamento.getTroco());
+			dto.setModoPagamentoDescricao(pagamento.getModoPagamento().getDescricao());
+			return dto;
+		} else {
+			return null;
+		}
 	}
 
 	public Pagamento update(Long id, Pagamento pagamento) {
@@ -79,4 +86,5 @@ public class PagamentoService {
 		});
 		return pagamentosDTO;
 	}
+
 }

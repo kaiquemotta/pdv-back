@@ -24,7 +24,7 @@ public class Caixa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private Integer idUsuario;
+	private Long idUsuario;
 	
 	private Double valorAbertura;
 	private Double valorFechamento;

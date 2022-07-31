@@ -46,10 +46,11 @@ public class PagamentoResource {
 	@PostMapping
 	public ResponseEntity<?> insert(@RequestBody Pagamento pagamento) {
 		
-		
-//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pagamento.getId())
-//				.toUri();
-		return ResponseEntity.ok(pagamentoService.insert(pagamento));
+		PagamentoDTO  dto =pagamentoService.insert(pagamento);
+		if(dto==null) {
+			return (ResponseEntity<?>) ResponseEntity.badRequest();
+		}
+		return ResponseEntity.ok(dto);
 	}
 
 	@PutMapping(value = "/{id}")
